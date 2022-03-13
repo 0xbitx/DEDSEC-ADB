@@ -25,8 +25,8 @@ def banner_option():
  | 3 - call botton            23 - clear settings       43 - monkey                 |
  | 4 - end call               24 - reboot               44 - install dedsec-virus   |
  | 5 - power botton           25 - adb shell            45 - install anti-dedsec    |
- | 6 - camera                 26 - download file                                    |
- | 7 - decrease brightness    27 - upload file                                      |
+ | 6 - camera                 26 - download file        46 - send keystroke         |
+ | 7 - decrease brightness    27 - upload file          47 - send sms               |
  | 8 - increase brightness    28 - screenrecord                                     |
  | 9 - sleep                  29 - install app from desktop                         |
  | 10 - wakeup                30 - disconnect device                                |
@@ -356,6 +356,19 @@ while True:
 		os.system("adb push anti_dedsec.apk " +location)
 		os.system("adb install anti_dedsec.apk")
 	
+	elif command == "46":
+		sms = input("text: ")
+		os.system("""adb shell "input keyboard text '"""  +sms+  """'" """)
+		os.system("adb shell input keyevent 66")
+		
+	elif command == "47":
+		print("Example: 09774587399")
+		num = input("Phone number: ")
+		print("")
+		sms = input("message: ")
+		os.system("""adb shell am start -a android.intent.action.SENDTO -d sms:"""+num+""" --es sms_body '"""+sms+"""' --ez exit_on_sent true""")
+		os.system("adb shell input keyevent 61")
+		os.system("adb shell input keyevent 66")
 	
 	elif command == "01":
 		start1()
